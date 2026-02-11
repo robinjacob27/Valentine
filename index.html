@@ -11,6 +11,7 @@ body {
     font-family: 'Segoe UI', sans-serif;
     text-align: center;
     color: white;
+    background-color: #1a1a1a; /* Fallback */
 }
 
 /* 🌙 Dark Centered Cinematic Background */
@@ -62,9 +63,9 @@ body::before {
     box-shadow: 0 0 40px rgba(255, 0, 128, 0.3);
     width: 80%;
     max-width: 420px;
-    transition: transform 0.7s ease-in-out;
+    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 10;
 }
-
 
 button {
     padding: 10px 20px;
@@ -96,6 +97,7 @@ button:hover {
     font-size: 20px;
     animation: floatHearts 6s ease-in-out infinite alternate;
     opacity: 0.7;
+    pointer-events: none;
 }
 
 @keyframes floatHearts {
@@ -109,9 +111,11 @@ button:hover {
 <body>
 
 <div class="card" id="questionBox">
-    <h2 id="questionText">Will you be my valentine? 💕</h2>
-    <button class="yes" onclick="nextQuestion()">Yes 💖</button>
-    <button class="no" onclick="moveButton(this)">No 😢</button>
+    <div id="contentWrapper">
+        <h2 id="questionText">Will you be my valentine? 💕</h2>
+        <button class="yes" onclick="nextQuestion()">Yes 💖</button>
+        <button class="no" onclick="moveButton(this)">No 😢</button>
+    </div>
 </div>
 
 <script>
@@ -124,6 +128,7 @@ setInterval(() => {
     const snippet = document.createElement("div");
     snippet.classList.add("snippet");
     snippet.style.left = Math.random() * 100 + "vw";
+    snippet.style.top = Math.random() * 100 + "vh";
     const size = Math.random() * 80 + 80;
     snippet.style.width = size + "px";
     snippet.style.height = size + "px";
@@ -144,51 +149,49 @@ setInterval(() => {
 
 /* 😈 No Button Escapes */
 function moveButton(btn) {
-    btn.style.position = "absolute";
-    btn.style.left = Math.random() * 80 + "vw";
-    btn.style.top = Math.random() * 80 + "vh";
+    btn.style.position = "fixed";
+    btn.style.left = Math.random() * 70 + 10 + "vw";
+    btn.style.top = Math.random() * 70 + 10 + "vh";
 }
 
 /* 🔥 Emotional Zoom Progression */
-function increaseZoom() {
-    zoomLevel += 0.3;
-    document.getElementById("questionBox").style.transform =
-    `translate(-50%, -50%) scale(${zoomLevel})`;
+function updateZoom() {
+    const box = document.getElementById("questionBox");
+    box.style.transform = `translate(-50%, -50%) scale(${zoomLevel})`;
 }
 
 /* 💖 Next Question Flow */
 function nextQuestion() {
-
-    increaseZoom();
+    const box = document.getElementById("questionBox");
+    
     step++;
-
-    const box = document.getElementById("questionBox").style.transform =
-    `translate(-50%, -50%) scale(${zoomLevel})`;
+    zoomLevel += 0.4;
+    updateZoom();
 
     if (step === 2) {
         box.innerHTML = `
-            <h2>Are you RHEAlly sure? </h2>
+            <h2>Are you RHEAlly sure? 🤨</h2>
             <button class="yes" onclick="nextQuestion()">Yes, I'm sure 💕</button>
             <button class="no" onclick="moveButton(this)">No 😅</button>
         `;
-    }
-
+    } 
     else if (step === 3) {
         box.innerHTML = `
             <h2>Like really really sure? 🥰💖</h2>
             <button class="yes" onclick="nextQuestion()">Absolutely yes ❤️</button>
             <button class="no" onclick="moveButton(this)">Wait 😭</button>
         `;
-    }
-
+    } 
     else if (step === 4) {
-        zoomLevel += 0.5;
-        box.style.transform = `scale(${zoomLevel})`;
+        // Final Zoom Boost
+        zoomLevel += 0.6;
+        updateZoom();
 
         box.innerHTML = `
-            <h2 style="font-size:34px;">
-                Stuck with me now, Lol
+            <h2 style="font-size:34px; margin: 0;">
+                Stuck with me now, Lol! 💍✨
             </h2>
+            <p style="margin-top: 20px;">See you soon! ❤️</p>
         `;
     }
 }
