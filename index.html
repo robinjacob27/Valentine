@@ -13,7 +13,7 @@ body {
     color: white;
 }
 
-/* 🌙 Cinematic Dark Romantic Background */
+/* 🌙 Dark Centered Cinematic Background */
 body::before {
     content: "";
     position: fixed;
@@ -22,16 +22,15 @@ body::before {
     width: 100%;
     height: 100%;
     background:
-        linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)),
+        linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
         url("https://images.unsplash.com/photo-1518199266791-5375a83190b7");
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
-    transform: scale(1.05); /* prevents edge cut after blur */
+    transform: scale(1.05);
     filter: blur(3px);
     z-index: -2;
 }
-
 
 /* 💖 Floating Photo Snippets */
 .snippet {
@@ -50,7 +49,7 @@ body::before {
     to { transform: translateY(-40px) rotate(15deg); }
 }
 
-/* 💌 Card */
+/* 💌 Glass Card */
 .card {
     position: relative;
     background: rgba(255, 255, 255, 0.1);
@@ -59,14 +58,9 @@ body::before {
     backdrop-filter: blur(15px);
     box-shadow: 0 0 40px rgba(255, 0, 128, 0.3);
     width: 80%;
-    max-width: 400px;
+    max-width: 420px;
     margin: 100px auto;
-    animation: zoomIn 1s ease-in-out;
-}
-
-@keyframes zoomIn {
-    from { transform: scale(0.8); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
+    transition: transform 0.7s ease-in-out;
 }
 
 button {
@@ -98,7 +92,7 @@ button:hover {
     position: absolute;
     font-size: 20px;
     animation: floatHearts 6s ease-in-out infinite alternate;
-    opacity: 0.8;
+    opacity: 0.7;
 }
 
 @keyframes floatHearts {
@@ -112,14 +106,17 @@ button:hover {
 <body>
 
 <div class="card" id="questionBox">
-    <h2>Will you be my valentine? 💕</h2>
+    <h2 id="questionText">Will you be my valentine? 💕</h2>
     <button class="yes" onclick="nextQuestion()">Yes 💖</button>
     <button class="no" onclick="moveButton(this)">No 😢</button>
 </div>
 
 <script>
 
-/* 💖 Floating Snippets Generator */
+let zoomLevel = 1;
+let step = 1;
+
+/* 💖 Floating Snippets */
 setInterval(() => {
     const snippet = document.createElement("div");
     snippet.classList.add("snippet");
@@ -128,11 +125,10 @@ setInterval(() => {
     snippet.style.width = size + "px";
     snippet.style.height = size + "px";
     document.body.appendChild(snippet);
-
     setTimeout(() => snippet.remove(), 12000);
 }, 1500);
 
-/* 💘 Floating Hearts Generator */
+/* 💘 Floating Hearts */
 setInterval(() => {
     const heart = document.createElement("div");
     heart.classList.add("heart");
@@ -140,42 +136,56 @@ setInterval(() => {
     heart.style.left = Math.random() * 100 + "vw";
     heart.style.top = Math.random() * 100 + "vh";
     document.body.appendChild(heart);
-
     setTimeout(() => heart.remove(), 6000);
 }, 1000);
 
-/* 💌 Button Move */
+/* 😈 No Button Escapes */
 function moveButton(btn) {
     btn.style.position = "absolute";
     btn.style.left = Math.random() * 80 + "vw";
     btn.style.top = Math.random() * 80 + "vh";
 }
 
-/* 💖 Next Question (Zoom More Romantic) */
-function nextQuestion() {
-    const box = document.getElementById("questionBox");
-    box.innerHTML = `
-        <h2 style="animation: zoomIn 1s ease-in-out;">Are you Rheally sure? 🥺💘</h2>
-        <button class="yes" onclick="finalMessage()">Yes, I am sure 💕</button>
-        <button class="no" onclick="moveButton(this)">No 😅</button>
-    `;
+/* 🔥 Emotional Zoom Progression */
+function increaseZoom() {
+    zoomLevel += 0.3;
+    document.getElementById("questionBox").style.transform = `scale(${zoomLevel})`;
 }
 
-/* 💖 Question 3 (NEW LAYER) */
-function thirdQuestion() {
+/* 💖 Next Question Flow */
+function nextQuestion() {
+
+    increaseZoom();
+    step++;
+
     const box = document.getElementById("questionBox");
-    box.innerHTML = `
-        <h2 style="animation: zoomIn 0.8s ease-in-out;">Like RHEAlly really sure? 🥰💖</h2>
-        <button class="yes" onclick="finalMessage()">Absolutely yes ❤️</button>
-        <button class="no" onclick="moveButton(this)">Wait 😭</button>
-    `;
-}
-/* 💍 Final Message */
-function finalMessage() {
-    const box = document.getElementById("questionBox");
-    box.innerHTML = `
-        <h2 style="font-size:28px;">Stuck with me now lol</h2>
-    `;
+
+    if (step === 2) {
+        box.innerHTML = `
+            <h2>Are you RHEAlly sure? </h2>
+            <button class="yes" onclick="nextQuestion()">Yes, I'm sure 💕</button>
+            <button class="no" onclick="moveButton(this)">No 😅</button>
+        `;
+    }
+
+    else if (step === 3) {
+        box.innerHTML = `
+            <h2>Like really really sure? 🥰💖</h2>
+            <button class="yes" onclick="nextQuestion()">Absolutely yes ❤️</button>
+            <button class="no" onclick="moveButton(this)">Wait 😭</button>
+        `;
+    }
+
+    else if (step === 4) {
+        zoomLevel += 0.5;
+        box.style.transform = `scale(${zoomLevel})`;
+
+        box.innerHTML = `
+            <h2 style="font-size:34px;">
+                I love you forever and ever ❤️💍
+            </h2>
+        `;
+    }
 }
 
 </script>
