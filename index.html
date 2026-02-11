@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,7 +31,7 @@ body::before {
     border-radius: 25px;
     text-align: center;
     box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-    transition: transform 0.8s ease, opacity 0.5s ease;
+    transition: transform 0.8s ease;
 }
 
 h1 {
@@ -60,49 +59,74 @@ button:hover {
     display: none;
 }
 
-.zoom {
-    transform: scale(1.4);
-}
+/* Zoom Levels */
+.zoom1 { transform: scale(1.3); }
+.zoom2 { transform: scale(1.6); }
+
 </style>
 </head>
 <body>
 
 <div class="card" id="card">
-    <div id="question1">
+
+    <!-- Question 1 -->
+    <div id="q1">
         <h1>Will you be my Valentine? 💕</h1>
-        <button onclick="nextQuestion()">Yes</button>
-        <button onclick="nextQuestion()">Absolutely Yes</button>
+        <button onclick="showQ2()">Yes</button>
+        <button onclick="showQ2()">Absolutely Yes</button>
     </div>
 
-    <div id="question2" class="hidden">
+    <!-- Question 2 -->
+    <div id="q2" class="hidden">
         <h1>Are you sure? 😏</h1>
-        <button onclick="finalAnswer()">Yes, 100%</button>
-        <button onclick="finalAnswer()">Of course I am!</button>
+        <button onclick="showQ3()">Yes, I'm sure</button>
+        <button onclick="showQ3()">Of course!</button>
     </div>
 
-    <div id="finalMessage" class="hidden">
-        <h1>Yayyyyy 💖🥰<br>Best Valentine Ever!</h1>
+    <!-- Question 3 -->
+    <div id="q3" class="hidden">
+        <h1>Really really sure?? 🥺💖</h1>
+        <button onclick="finalMessage()">1000% sure!</button>
+        <button onclick="finalMessage()">Yes forever!</button>
     </div>
+
+    <!-- Final -->
+    <div id="final" class="hidden">
+        <h1>Yayyyyy 💖🥰<br>You’re stuck with me now!</h1>
+    </div>
+
 </div>
 
 <script>
-function nextQuestion() {
-    document.getElementById("question1").classList.add("hidden");
-    document.getElementById("card").classList.add("zoom");
+function showQ2() {
+    document.getElementById("q1").classList.add("hidden");
+    document.getElementById("card").classList.add("zoom1");
 
     setTimeout(() => {
-        document.getElementById("question2").classList.remove("hidden");
-    }, 500);
+        document.getElementById("q2").classList.remove("hidden");
+    }, 400);
 }
 
-function finalAnswer() {
-    document.getElementById("question2").classList.add("hidden");
+function showQ3() {
+    document.getElementById("q2").classList.add("hidden");
+    document.getElementById("card").classList.remove("zoom1");
+    document.getElementById("card").classList.add("zoom2");
 
     setTimeout(() => {
-        document.getElementById("finalMessage").classList.remove("hidden");
-    }, 300);
+        document.getElementById("q3").classList.remove("hidden");
+    }, 400);
+}
+
+function finalMessage() {
+    document.getElementById("q3").classList.add("hidden");
+    document.getElementById("card").classList.remove("zoom2");
+
+    setTimeout(() => {
+        document.getElementById("final").classList.remove("hidden");
+    }, 400);
 }
 </script>
 
 </body>
 </html>
+
