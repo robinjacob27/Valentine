@@ -51,7 +51,10 @@ body::before {
 
 /* 💌 Glass Card */
 .card {
-    position: relative;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
     background: rgba(255, 255, 255, 0.1);
     padding: 40px;
     border-radius: 20px;
@@ -59,9 +62,9 @@ body::before {
     box-shadow: 0 0 40px rgba(255, 0, 128, 0.3);
     width: 80%;
     max-width: 420px;
-    margin: 100px auto;
     transition: transform 0.7s ease-in-out;
 }
+
 
 button {
     padding: 10px 20px;
