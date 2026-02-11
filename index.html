@@ -11,60 +11,71 @@ body {
     font-family: 'Segoe UI', sans-serif;
     text-align: center;
     color: white;
-    background-color: #1a1a1a; /* Fallback */
+    background-color: #1a1a1a;
+
+    /* ✅ Perfect Centering */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
-/* 🌙 Dark Centered Cinematic Background */
+/* 🌙 Dark Cinematic Background */
 body::before {
     content: "";
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     background:
-        linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+        linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)),
         url("https://images.unsplash.com/photo-1518199266791-5375a83190b7");
-    background-position: center center;
-    background-repeat: no-repeat;
+    background-position: center;
     background-size: cover;
+    background-repeat: no-repeat;
     transform: scale(1.05);
     filter: blur(3px);
     z-index: -2;
 }
 
-/* 💖 Floating Photo Snippets */
+/* 💖 Polaroid Floating Snippets */
 .snippet {
     position: absolute;
     background-image: url("us.jpg");
     background-size: cover;
     background-position: center;
-    border-radius: 20px;
-    opacity: 0.12;
-    filter: blur(1px);
-    animation: floatSnippet 10s ease-in-out infinite alternate;
+    width: 120px;
+    height: 140px;
+    padding: 10px;
+    background-clip: content-box;
+    border: 8px solid white;
+    border-bottom: 25px solid white; /* Polaroid bottom */
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    opacity: 0.6; /* brighter */
+    animation: floatSnippet 12s ease-in-out infinite alternate;
 }
 
 @keyframes floatSnippet {
-    from { transform: translateY(30px) rotate(0deg); }
-    to { transform: translateY(-40px) rotate(15deg); }
+    from { transform: translateY(40px) rotate(-8deg); }
+    to { transform: translateY(-40px) rotate(8deg); }
 }
 
 /* 💌 Glass Card */
 .card {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(1);
-    background: rgba(255, 255, 255, 0.1);
+    position: relative;
+    transform: scale(1);
+    background: rgba(255, 255, 255, 0.12);
     padding: 40px;
     border-radius: 20px;
     backdrop-filter: blur(15px);
-    box-shadow: 0 0 40px rgba(255, 0, 128, 0.3);
+    box-shadow: 0 0 40px rgba(255, 0, 128, 0.4);
     width: 80%;
     max-width: 420px;
     transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     z-index: 10;
+}
+
+h2 {
+    margin-top: 0;
 }
 
 button {
@@ -96,13 +107,13 @@ button:hover {
     position: absolute;
     font-size: 20px;
     animation: floatHearts 6s ease-in-out infinite alternate;
-    opacity: 0.7;
+    opacity: 0.8;
     pointer-events: none;
 }
 
 @keyframes floatHearts {
     from { transform: translateY(0px); }
-    to { transform: translateY(-50px); }
+    to { transform: translateY(-60px); }
 }
 
 </style>
@@ -111,11 +122,9 @@ button:hover {
 <body>
 
 <div class="card" id="questionBox">
-    <div id="contentWrapper">
-        <h2 id="questionText">Will you be my valentine? 💕</h2>
-        <button class="yes" onclick="nextQuestion()">Yes 💖</button>
-        <button class="no" onclick="moveButton(this)">No 😢</button>
-    </div>
+    <h2>Will you be my valentine? 💕</h2>
+    <button class="yes" onclick="nextQuestion()">Yes 💖</button>
+    <button class="no" onclick="moveButton(this)">No 😢</button>
 </div>
 
 <script>
@@ -123,18 +132,18 @@ button:hover {
 let zoomLevel = 1;
 let step = 1;
 
-/* 💖 Floating Snippets */
+/* 💖 Polaroid Snippets Generator */
 setInterval(() => {
     const snippet = document.createElement("div");
     snippet.classList.add("snippet");
+
     snippet.style.left = Math.random() * 100 + "vw";
     snippet.style.top = Math.random() * 100 + "vh";
-    const size = Math.random() * 80 + 80;
-    snippet.style.width = size + "px";
-    snippet.style.height = size + "px";
+    snippet.style.animationDuration = (Math.random() * 6 + 8) + "s";
+
     document.body.appendChild(snippet);
-    setTimeout(() => snippet.remove(), 12000);
-}, 1500);
+    setTimeout(() => snippet.remove(), 15000);
+}, 1800);
 
 /* 💘 Floating Hearts */
 setInterval(() => {
@@ -154,41 +163,40 @@ function moveButton(btn) {
     btn.style.top = Math.random() * 70 + 10 + "vh";
 }
 
-/* 🔥 Emotional Zoom Progression */
+/* 🔥 Zoom Update */
 function updateZoom() {
-    const box = document.getElementById("questionBox");
-    box.style.transform = `translate(-50%, -50%) scale(${zoomLevel})`;
+    document.getElementById("questionBox").style.transform = `scale(${zoomLevel})`;
 }
 
-/* 💖 Next Question Flow */
+/* 💖 Question Flow */
 function nextQuestion() {
-    const box = document.getElementById("questionBox");
-    
+
     step++;
-    zoomLevel += 0.4;
+    zoomLevel += 0.35;
     updateZoom();
+
+    const box = document.getElementById("questionBox");
 
     if (step === 2) {
         box.innerHTML = `
-            <h2>Are you RHEAlly sure? 🤨</h2>
+            <h2>Are you REALLY sure? 🤨💘</h2>
             <button class="yes" onclick="nextQuestion()">Yes, I'm sure 💕</button>
             <button class="no" onclick="moveButton(this)">No 😅</button>
         `;
     } 
     else if (step === 3) {
         box.innerHTML = `
-            <h2>Like really really sure? 🥰💖</h2>
+            <h2>Like REALLY really sure? 🥰💖</h2>
             <button class="yes" onclick="nextQuestion()">Absolutely yes ❤️</button>
             <button class="no" onclick="moveButton(this)">Wait 😭</button>
         `;
     } 
     else if (step === 4) {
-        // Final Zoom Boost
         zoomLevel += 0.6;
         updateZoom();
 
         box.innerHTML = `
-            <h2 style="font-size:34px; margin: 0;">
+            <h2 style="font-size:34px;">
                 Stuck with me now, Lol! ✨
             </h2>
             <p style="margin-top: 20px;">See you soon! ❤️</p>
@@ -200,3 +208,4 @@ function nextQuestion() {
 
 </body>
 </html>
+
