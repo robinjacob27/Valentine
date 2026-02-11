@@ -1,52 +1,98 @@
+
 <!DOCTYPE html>
 <html>
 <head>
 <title>Valentine 💖</title>
 <style>
 body {
+    margin: 0;
     background: linear-gradient(to right, #ff9a9e, #fad0c4);
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    font-family: 'Comic Sans MS', cursive;
+    font-family: 'Segoe UI', sans-serif;
+    overflow: hidden;
 }
 
 .card {
     background: white;
-    padding: 40px;
-    border-radius: 20px;
+    padding: 50px;
+    border-radius: 25px;
     text-align: center;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    transition: transform 0.8s ease, opacity 0.5s ease;
 }
 
 h1 {
     color: #ff4d6d;
+    margin-bottom: 30px;
 }
 
 button {
     background-color: #ff4d6d;
     color: white;
     border: none;
-    padding: 12px 25px;
+    padding: 12px 30px;
     margin: 10px;
-    border-radius: 25px;
+    border-radius: 30px;
     font-size: 16px;
     cursor: pointer;
+    transition: transform 0.3s ease;
 }
 
 button:hover {
     transform: scale(1.1);
 }
+
+.hidden {
+    display: none;
+}
+
+.zoom {
+    transform: scale(1.4);
+}
+
 </style>
 </head>
 <body>
 
-<div class="card">
-    <h1>Will you be my Valentine? 💕</h1>
-    <button onclick="alert('Yayyy 💖')">Yes</button>
-    <button onclick="alert('I knew it 😍')">Absolutely Yes</button>
+<div class="card" id="card">
+    <div id="question1">
+        <h1>Will you be my Valentine? 💕</h1>
+        <button onclick="nextQuestion()">Yes</button>
+        <button onclick="nextQuestion()">Absolutely Yes</button>
+    </div>
+
+    <div id="question2" class="hidden">
+        <h1>Are you sure? 😏</h1>
+        <button onclick="finalAnswer()">Yes, 100%</button>
+        <button onclick="finalAnswer()">Of course I am!</button>
+    </div>
+
+    <div id="finalMessage" class="hidden">
+        <h1>Yayyyyy 💖🥰<br>Best Valentine Ever!</h1>
+    </div>
 </div>
+
+<script>
+function nextQuestion() {
+    document.getElementById("question1").classList.add("hidden");
+    document.getElementById("card").classList.add("zoom");
+
+    setTimeout(() => {
+        document.getElementById("question2").classList.remove("hidden");
+    }, 500);
+}
+
+function finalAnswer() {
+    document.getElementById("question2").classList.add("hidden");
+
+    setTimeout(() => {
+        document.getElementById("finalMessage").classList.remove("hidden");
+    }, 300);
+}
+</script>
 
 </body>
 </html>
