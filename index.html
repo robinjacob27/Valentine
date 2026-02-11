@@ -6,21 +6,32 @@
 <style>
 body {
     margin: 0;
-    background: linear-gradient(to right, #ff9a9e, #fad0c4);
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
     font-family: 'Segoe UI', sans-serif;
     overflow: hidden;
 }
 
+/* Romantic Background */
+body::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url("https://images.unsplash.com/photo-1518199266791-5375a83190b7") no-repeat center center/cover;
+    filter: blur(4px) brightness(0.85);
+    z-index: -1;
+}
+
+/* Card */
 .card {
-    background: white;
+    background: rgba(255, 255, 255, 0.95);
     padding: 50px;
     border-radius: 25px;
     text-align: center;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
     transition: transform 0.8s ease, opacity 0.5s ease;
 }
 
@@ -52,7 +63,6 @@ button:hover {
 .zoom {
     transform: scale(1.4);
 }
-
 </style>
 </head>
 <body>
