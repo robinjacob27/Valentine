@@ -162,7 +162,8 @@ function nextQuestion() {
     increaseZoom();
     step++;
 
-    const box = document.getElementById("questionBox");
+    const box = document.getElementById("questionBox").style.transform =
+    `translate(-50%, -50%) scale(${zoomLevel})`;
 
     if (step === 2) {
         box.innerHTML = `
