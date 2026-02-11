@@ -152,7 +152,8 @@ function moveButton(btn) {
 /* 🔥 Emotional Zoom Progression */
 function increaseZoom() {
     zoomLevel += 0.3;
-    document.getElementById("questionBox").style.transform = `scale(${zoomLevel})`;
+    document.getElementById("questionBox").style.transform =
+    `translate(-50%, -50%) scale(${zoomLevel})`;
 }
 
 /* 💖 Next Question Flow */
@@ -185,7 +186,7 @@ function nextQuestion() {
 
         box.innerHTML = `
             <h2 style="font-size:34px;">
-                I love you forever and ever ❤️💍
+                Stuck with me now, Lol
             </h2>
         `;
     }
