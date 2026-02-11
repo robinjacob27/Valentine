@@ -98,7 +98,7 @@ button:hover {
     position: absolute;
     font-size: 20px;
     animation: floatHearts 6s ease-in-out infinite alternate;
-    opacity: 0.7;
+    opacity: 0.8;
 }
 
 @keyframes floatHearts {
@@ -112,7 +112,7 @@ button:hover {
 <body>
 
 <div class="card" id="questionBox">
-    <h2>Do you love me? 💕</h2>
+    <h2>Will you be my valentine? 💕</h2>
     <button class="yes" onclick="nextQuestion()">Yes 💖</button>
     <button class="no" onclick="moveButton(this)">No 😢</button>
 </div>
@@ -155,17 +155,26 @@ function moveButton(btn) {
 function nextQuestion() {
     const box = document.getElementById("questionBox");
     box.innerHTML = `
-        <h2 style="animation: zoomIn 1s ease-in-out;">Are you sure? 🥺💘</h2>
+        <h2 style="animation: zoomIn 1s ease-in-out;">Are you Rheally sure? 🥺💘</h2>
         <button class="yes" onclick="finalMessage()">Yes, I am sure 💕</button>
         <button class="no" onclick="moveButton(this)">No 😅</button>
     `;
 }
 
+/* 💖 Question 3 (NEW LAYER) */
+function thirdQuestion() {
+    const box = document.getElementById("questionBox");
+    box.innerHTML = `
+        <h2 style="animation: zoomIn 0.8s ease-in-out;">Like RHEAlly really sure? 🥰💖</h2>
+        <button class="yes" onclick="finalMessage()">Absolutely yes ❤️</button>
+        <button class="no" onclick="moveButton(this)">Wait 😭</button>
+    `;
+}
 /* 💍 Final Message */
 function finalMessage() {
     const box = document.getElementById("questionBox");
     box.innerHTML = `
-        <h2 style="font-size:28px;">I love you forever ❤️</h2>
+        <h2 style="font-size:28px;">Stuck with me now lol</h2>
     `;
 }
 
